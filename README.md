@@ -27,7 +27,7 @@ Text documents are one of the richest sources of data for businesses.We’ll use
 
 The dataset is broken into 1490 records for training and 735 for testing. The goal will be to build a system that can accurately classify previously unseen news articles into the right category.
 
-### [Click Here To See More About The Dataset]( https://www.kaggle.com/c/learn-ai-bbc/data)   
+### [Click Here To See More About The Dataset](https://www.kaggle.com/c/learn-ai-bbc/data)   
 
 
 ##  ML Flow Experiments
