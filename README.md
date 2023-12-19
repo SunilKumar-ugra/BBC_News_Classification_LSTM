@@ -1,4 +1,4 @@
-# BBC_News_Classification_LSTM
+# BBC News Classification LSTM
 
 In today’s world, data is power. With News companies having terabytes of data stored in
 servers, everyone is in the quest to discover insights that add value to the organization.
