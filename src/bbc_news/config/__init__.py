@@ -1,7 +1,6 @@
 from bbc_news.constants import *
 from bbc_news.utils import read_yaml, create_directories
-from bbc_news.entity import DataIngestionConfig
-
+from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -29,3 +28,37 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+
+    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+            config = self.config.prepare_base_model
+            
+            create_directories([config.root_dir])
+
+            prepare_base_model_config = PrepareBaseModelConfig(
+                root_dir=Path(config.root_dir),
+                base_model_path=Path(config.base_model_path),
+                updated_base_model_path=Path(config.updated_base_model_path),
+                lstm_model_path=Path(config.lstm_model_path),
+                ################################################################
+                # params_image_size=self.params.IMAGE_SIZE,
+                # params_learning_rate=self.params.LEARNING_RATE,
+                # params_include_top=self.params.INCLUDE_TOP,
+                # params_weights=self.params.WEIGHTS,
+                # params_classes=self.params.CLASSES
+                ################################################################
+                params_max_features= self.params.features.MAX_FEATURES,
+                params_max_text_length= self.params.features.MAX_TEXT_LENGTH,
+                params_num_category= self.params.features.NUM_CATEGORY,
+                params_loss= self.params.lstm.LOSS,
+                params_optimizer=self.params.lstm.OPTIMIZER,
+                params_activation=self.params.lstm.ACTIVATION,
+                params_dropout=self.params.lstm.DROPOUT,
+                params_embedding_dim=self.params.lstm.EMBEDDING_DIM,
+                params_metrics=self.params.lstm.METRICS,
+                params_learning_rate=self.params.lstm.LEARNING_RATE,
+                params_batch_size=self.params.lstm.BATCH_SIZE,
+                params_epochs=self.params.lstm.EPOCHS,
+                params_lstm_units=self.params.lstm.UNITS
+            )
+
+            return prepare_base_model_config
