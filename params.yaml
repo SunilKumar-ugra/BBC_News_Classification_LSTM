@@ -2,7 +2,7 @@
 features:
   MAX_FEATURES: 10000
   MAX_TEXT_LENGTH: 200
-  NUM_CATEGORY: 5
+  NUM_CATEGORY: 1
 lstm:
   LOSS: categorical_crossentropy
   OPTIMIZER: adam
