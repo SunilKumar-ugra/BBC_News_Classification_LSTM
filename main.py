@@ -46,3 +46,16 @@ try:
 except Exception as e:
         logger.exception(e)
         raise e
+from bbc_news.pipeline.stage_05_model_evaluation_mlflow import EvaluationPipeline
+
+STAGE_NAME = "Evaluation Stage"
+try:
+   logger.info(f"*******************")
+   logger.info(f">>>>>>  {STAGE_NAME} started <<<<<<")
+   model_evalution = EvaluationPipeline()
+   model_evalution.main()
+   logger.info(f">>>>>> {STAGE_NAME} completed <<<<<<\n\nx==========x")
+
+except Exception as e:
+        logger.exception(e)
+        raise e

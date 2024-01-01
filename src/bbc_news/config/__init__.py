@@ -1,7 +1,7 @@
 from bbc_news.constants import *
 from bbc_news.utils import read_yaml, create_directories
 from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig,DataTransformationConfig,
-                             ModelTrainerConfig)
+                             ModelTrainerConfig,EvaluationConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -105,3 +105,21 @@ class ConfigurationManager:
         ) 
 
         return training_config
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        config = self.config.model_evaluation
+        params = self.params
+        
+        create_directories([config.root_dir])
+        
+        eval_config = EvaluationConfig(
+            root_dir=config.root_dir,
+            test_data_path=config.test_data_path,
+            model_path = config.model_path,
+            all_params=params,
+            metric_file_name = config.metric_file_name,
+            
+            mlflow_uri="https://dagshub.com/SunilKumar-ugra/BBC_News_Classification_LSTM.mlflow",
+            
+        )
+        return eval_config

@@ -57,3 +57,12 @@ class ModelTrainerConfig:
     params_epochs: int
     params_batch_size: int
    
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    root_dir: Path
+    model_path: Path
+    test_data_path: Path
+    all_params: dict
+    mlflow_uri: str
+    metric_file_name: Path
