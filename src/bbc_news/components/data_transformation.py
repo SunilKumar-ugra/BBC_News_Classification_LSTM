@@ -111,7 +111,7 @@ class DataTransformation:
         X=self.tokenize_and_pad_sequences(text_data=data['Text'],max_text_length=self.config.params_max_text_length)
         
         
-        self.train_test_spliting(pd.concat([pd.DataFrame(X),pd.DataFrame(y)],axis=1))
+        self.train_test_spliting(pd.concat([pd.DataFrame(X),pd.DataFrame(y,columns=['cat'])],axis=1))
         
         
         
