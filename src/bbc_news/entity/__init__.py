@@ -44,3 +44,16 @@ class DataTransformationConfig:
     tokeniazer_path: Path
     params_max_features:int
     params_max_text_length: int
+
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    trained_model_path: Path
+    lstm_model_path: Path
+    
+    train_data_path: Path
+    test_data_path: Path
+    
+    params_epochs: int
+    params_batch_size: int
+   

@@ -1,6 +1,7 @@
 from bbc_news.constants import *
 from bbc_news.utils import read_yaml, create_directories
-from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig,DataTransformationConfig)
+from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig,DataTransformationConfig,
+                             ModelTrainerConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -79,3 +80,28 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+
+
+    def get_training_config(self) -> ModelTrainerConfig:
+        training = self.config.model_trainer
+        prepare_base_model = self.config.prepare_base_model
+        params = self.params
+        
+        create_directories([
+            Path(training.root_dir)
+        ])
+
+        training_config = ModelTrainerConfig(
+            root_dir=Path(training.root_dir),
+            trained_model_path=Path(training.trained_model_path),
+            lstm_model_path=Path(prepare_base_model.lstm_model_path),
+            
+            train_data_path = training.train_data_path,
+            test_data_path = training.test_data_path,
+            
+            params_epochs=params.lstm.EPOCHS,
+            params_batch_size=params.lstm.BATCH_SIZE,
+            
+        ) 
+
+        return training_config

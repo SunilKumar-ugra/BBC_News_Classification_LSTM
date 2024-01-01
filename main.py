@@ -1,7 +1,7 @@
 from bbc_news import logger
+
+
 from bbc_news.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-
-
 STAGE_NAME = "Data Ingestion stage"
 try:
    logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<") 
@@ -34,3 +34,15 @@ try:
 except Exception as e:
         logger.exception(e)
         raise e 
+
+from bbc_news.pipeline.stage_04_model_trainer import ModelTrainingPipeline
+STAGE_NAME = "Model Trainer stage"
+try: 
+   logger.info(f"*******************")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   model_trainer = ModelTrainingPipeline()
+   model_trainer.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
