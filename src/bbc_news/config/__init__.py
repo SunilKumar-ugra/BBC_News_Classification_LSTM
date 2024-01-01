@@ -1,6 +1,6 @@
 from bbc_news.constants import *
 from bbc_news.utils import read_yaml, create_directories
-from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig)
+from bbc_news.entity import (DataIngestionConfig, PrepareBaseModelConfig,DataTransformationConfig)
 
 class ConfigurationManager:
     def __init__(
@@ -62,3 +62,20 @@ class ConfigurationManager:
             )
 
             return prepare_base_model_config
+    
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+
+        create_directories([config.root_dir])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            test_data_path=config.test_data_path,    
+            tokeniazer_path=config.tokeniazer_path,
+            params_max_features= self.params.features.MAX_FEATURES,
+            params_max_text_length= self.params.features.MAX_TEXT_LENGTH,
+        )
+
+        return data_transformation_config

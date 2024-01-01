@@ -34,3 +34,13 @@ class PrepareBaseModelConfig:
     params_batch_size:  int
     params_epochs: int
     params_lstm_units:int
+
+
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    train_data_path: Path
+    test_data_path: Path    
+    tokeniazer_path: Path
+    params_max_features:int
+    params_max_text_length: int
