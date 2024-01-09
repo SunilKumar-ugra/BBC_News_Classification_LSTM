@@ -1,5 +1,7 @@
 from bbc_news import logger
+from dotenv import load_dotenv
 
+load_dotenv()
 
 from bbc_news.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 STAGE_NAME = "Data Ingestion stage"
