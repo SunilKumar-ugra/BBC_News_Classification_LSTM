@@ -122,8 +122,8 @@ stages:
       size: 1275
     - path: src/bbc_news/pipeline/stage_05_model_evaluation_mlflow.py
       hash: md5
-      md5: 254543abea1aedcb64877735395957fe
-      size: 842
+      md5: 20151cbe60819f55ea0ee01998ab3174
+      size: 889
     outs:
     - path: artifacts/model_evaluation/metrics.json
       hash: md5
