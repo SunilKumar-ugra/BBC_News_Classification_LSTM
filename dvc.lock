@@ -1,0 +1,131 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/bbc_news/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 64d9b3dc5cde5fd7d048099d306120b7
+      size: 1275
+    - path: src/bbc_news/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 5726963a0127311f69d8964f34ac1f89
+      size: 873
+    outs:
+    - path: artifacts/data_ingestion/BBC-NEWS/BBC News Sample Solution.csv
+      hash: md5
+      md5: b7c959592afa9cec7e655e8695c472a6
+      size: 10369
+    - path: artifacts/data_ingestion/BBC-NEWS/BBC News Test.csv
+      hash: md5
+      md5: e41c04a4fbdc48520cac9f963ae265e5
+      size: 1712432
+    - path: artifacts/data_ingestion/BBC-NEWS/BBC News Train.csv
+      hash: md5
+      md5: 53d0cfd05cbadfe6ed367c633294f967
+      size: 3351206
+  prepare_base_model:
+    cmd: python src/bbc_news/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 64d9b3dc5cde5fd7d048099d306120b7
+      size: 1275
+    - path: params.yaml
+      hash: md5
+      md5: 244a0553cb049212f4a0a3bdc8197d45
+      size: 289
+    - path: src/bbc_news/pipeline/stage_02_prepare_base_model.py
+      hash: md5
+      md5: 3bf63e7bcb77b4aa72a3322048f54c8d
+      size: 932
+    outs:
+    - path: artifacts/prepare_base_model/lstm_model.keras
+      hash: md5
+      md5: 2ef7f2a20a92f904a332e91f99388d45
+      size: 5473241
+  data_transformation:
+    cmd: python src/bbc_news/pipeline/stage_03_data_transformation.py
+    deps:
+    - path: artifacts/data_ingestion/BBC-NEWS
+      hash: md5
+      md5: 5448d2176f639c7e6b3edc5ca3f8fd69.dir
+      size: 5074007
+      nfiles: 3
+    - path: config/config.yaml
+      hash: md5
+      md5: 64d9b3dc5cde5fd7d048099d306120b7
+      size: 1275
+    - path: src/bbc_news/pipeline/stage_03_data_transformation.py
+      hash: md5
+      md5: 1d5bf04614706f87f78b2f79efacfa3d
+      size: 917
+    outs:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: 7b957626888ac2615b4da45d2e948a4d
+      size: 265112
+    - path: artifacts/data_transformation/tokeniazer.joblib
+      hash: md5
+      md5: 608343bbba03d8e0d8aa2d28174233f6
+      size: 356
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: 736b40e91d37cd4bd038f948b66c8b47
+      size: 793981
+  model_trainer:
+    cmd: python src/bbc_news/pipeline/stage_04_model_trainer.py
+    deps:
+    - path: artifacts/data_transformation/test.csv
+      hash: md5
+      md5: 7b957626888ac2615b4da45d2e948a4d
+      size: 265112
+    - path: artifacts/data_transformation/tokeniazer.joblib
+      hash: md5
+      md5: 608343bbba03d8e0d8aa2d28174233f6
+      size: 356
+    - path: artifacts/data_transformation/train.csv
+      hash: md5
+      md5: 736b40e91d37cd4bd038f948b66c8b47
+      size: 793981
+    - path: config/config.yaml
+      hash: md5
+      md5: 64d9b3dc5cde5fd7d048099d306120b7
+      size: 1275
+    - path: params.yaml
+      hash: md5
+      md5: 244a0553cb049212f4a0a3bdc8197d45
+      size: 289
+    - path: src/bbc_news/pipeline/stage_04_model_trainer.py
+      hash: md5
+      md5: 3533bcae119af5312224f3d188392b37
+      size: 921
+    outs:
+    - path: artifacts/model_trainer/model.keras
+      hash: md5
+      md5: 9bdd3129a6241e2f2022df8aa64a08ec
+      size: 16385201
+  model_evaluation:
+    cmd: python src/bbc_news/pipeline/stage_05_model_evaluation_mlflow.py
+    deps:
+    - path: artifacts/data_transformation/tokeniazer.joblib
+      hash: md5
+      md5: 608343bbba03d8e0d8aa2d28174233f6
+      size: 356
+    - path: artifacts/model_trainer/model.keras
+      hash: md5
+      md5: 9bdd3129a6241e2f2022df8aa64a08ec
+      size: 16385201
+    - path: config/config.yaml
+      hash: md5
+      md5: 64d9b3dc5cde5fd7d048099d306120b7
+      size: 1275
+    - path: src/bbc_news/pipeline/stage_05_model_evaluation_mlflow.py
+      hash: md5
+      md5: 254543abea1aedcb64877735395957fe
+      size: 842
+    outs:
+    - path: artifacts/model_evaluation/metrics.json
+      hash: md5
+      md5: 23fd98a087889fe3f4a939c83361bc40
+      size: 58
