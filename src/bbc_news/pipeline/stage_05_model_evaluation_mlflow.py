@@ -1,7 +1,9 @@
 from bbc_news import logger
 from bbc_news.config import ConfigurationManager
 from bbc_news.components.model_evaluation_mlflow import Evaluation
+from dotenv import load_dotenv
 
+load_dotenv()
 class EvaluationPipeline:
     def __init__(self):
         pass
